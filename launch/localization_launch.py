@@ -14,6 +14,15 @@ def generate_launch_description():
         ])
     )
 
+    ekf_localizer_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare("ekf_localizer"), "launch", "ekf_localizer_launch.py"
+            ])
+        ])
+    )
+
     return LaunchDescription([
-        gps_imu_launch
+        gps_imu_launch,
+        ekf_localizer_launch
     ])

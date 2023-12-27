@@ -1,8 +1,8 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node, SetParameter
-from launch_ros.substitutions import FindPackageShare
-from launch.actions import IncludeLaunchDescription, ExecuteProcess
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.substitutions import FindPackageShare
 from launch.substitutions import PathJoinSubstitution
 from ament_index_python.packages import get_package_share_directory
 from os.path import join
@@ -22,6 +22,13 @@ def generate_launch_description():
         ])
     )
 
+    rviz_node = Node(
+        package="rviz2",
+        executable="rviz2",
+        name="rviz2",
+        arguments=["-d", join(get_package_share_directory("kitti_launches"), "rviz", "kitti.rviz")]
+    )
+
     # Localization launch
     localization_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -33,18 +40,15 @@ def generate_launch_description():
 
     # Perception launch
 
-
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        arguments=["-d", join(get_package_share_directory("kitti_launches"), "rviz", "kitti.rviz")]
-    )
-
     return LaunchDescription([
         SetParameter(name="use_sim_time", value=True),
         bag_exec,
         robot_state_publisher_launch,
-        localization_launch,
-        rviz_node
+        rviz_node,
+        TimerAction(
+            period=1.0, # dely localization for 1.0 seconds
+            actions=[
+                localization_launch
+            ]
+        )
     ])
