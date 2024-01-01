@@ -3,7 +3,8 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /TF1/Tree1
       Splitter Ratio: 0.5
     Tree Height: 439
   - Class: rviz_common/Selection
@@ -57,7 +58,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /kitti/image/color/left
+        Value: /kitti/camera/color/left
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -89,7 +90,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /kitti/point_cloud
+        Value: /kitti/velo
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -100,26 +101,26 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        camera0_link:
+        cam0_link:
           Value: false
-        camera1_link:
+        cam1_link:
           Value: false
-        camera2_link:
-          Value: true
-        camera3_link:
+        cam2_link:
+          Value: false
+        cam3_link:
           Value: false
         gps_link:
           Value: false
         imu_link:
           Value: false
-        lidar_link:
-          Value: true
         map:
           Value: true
         odom:
           Value: true
         oxts_link:
           Value: true
+        velo_link:
+          Value: false
       Marker Scale: 10
       Name: TF
       Show Arrows: true
@@ -132,13 +133,13 @@ Visualization Manager:
               gps_link:
                 {}
               imu_link:
-                lidar_link:
-                  camera0_link:
-                    camera1_link:
+                velo_link:
+                  cam0_link:
+                    cam1_link:
                       {}
-                    camera2_link:
+                    cam2_link:
                       {}
-                    camera3_link:
+                    cam3_link:
                       {}
           oxts_link:
             {}
@@ -167,22 +168,22 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        camera0_link:
+        cam0_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        camera1_link:
+        cam1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        camera2_link:
+        cam2_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        camera3_link:
+        cam3_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -196,7 +197,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        lidar_link:
+        velo_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -349,5 +350,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1920
-  X: 1920
+  X: 0
   Y: 24
