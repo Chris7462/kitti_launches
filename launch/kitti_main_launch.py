@@ -42,6 +42,13 @@ def generate_launch_description():
     )
 
     # Perception launch
+    perception_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('kitti_launches'), 'launch', 'perception_launch.py'
+            ])
+        ])
+    )
 
     return LaunchDescription([
         SetParameter(name='use_sim_time', value=True),
@@ -51,7 +58,8 @@ def generate_launch_description():
         TimerAction(
             period=1.0, # dely localization for 1.0 seconds
             actions=[
-                localization_launch
+                localization_launch,
+                perception_launch
             ]
         )
     ])
