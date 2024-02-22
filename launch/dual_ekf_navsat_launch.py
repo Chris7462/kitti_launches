@@ -68,7 +68,7 @@ def generate_launch_description():
         parameters=[params],
         remappings=[
             # remap subscriber topic
-            ('imu/data', 'kitti/oxts/imu'),
+            ('imu/data', 'kitti/oxts/imu_rotated'),
             ('odometry/wheel', 'kitti/wheel_odom'),
             # remap publisher topic
             ('odometry/filtered', 'odometry/local')]
@@ -82,7 +82,7 @@ def generate_launch_description():
         parameters=[params],
         remappings=[
             # remap subscriber topic
-            ('imu/data', 'kitti/oxts/imu'),
+            ('imu/data', 'kitti/oxts/imu_rotated'),
             ('odometry/wheel', 'kitti/wheel_odom'),
             # remap publisher topic
             ('odometry/filtered', 'odometry/global')]
@@ -96,7 +96,7 @@ def generate_launch_description():
         parameters=[params],
         remappings=[
             # remap subscriber
-            ('imu', 'kitti/oxts/imu'),
+            ('imu', 'kitti/oxts/imu_rotated'),
             ('gps/fix', 'kitti/gps/fix'),
             ('odometry/filtered', 'odometry/global')]
             # remap publisher
