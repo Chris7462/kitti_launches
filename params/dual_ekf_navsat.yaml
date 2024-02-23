@@ -159,7 +159,7 @@ navsat_transform:
   ros__parameters:
     frequency: 30.0
     delay: 0.03
-    magnetic_declination_radians: 0.0349  # For lat/long 49.008645N, 8.398104E
+    magnetic_declination_radians: 0.02600541  # For lat/long 49.008645N, 8.398104E. 1.49 degree and convert to radius
     yaw_offset: 0.0  # IMU reads 0 facing magnetic north, not east
     zero_altitude: false
     broadcast_cartesian_transform: true
