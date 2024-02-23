@@ -36,10 +36,31 @@ def generate_launch_description():
         arguments=['-d', join(get_package_share_directory('kitti_launches'), 'rviz', 'dual_ekf.rviz')]
     )
 
-    gps_imu_launch = IncludeLaunchDescription(
+    gps_shift_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare("gps_imu_node"), "launch", "gps_imu_launch.py"
+                FindPackageShare('gps_imu_node'), 'launch', 'gps_shift_launch.py'
+            ])
+        ])
+    )
+
+    trajectory_server_gps_node = Node(
+        package='trajectory_server',
+        executable='trajectory_server_node',
+        name='trajectory_server_node',
+        namespace='oxts',
+        parameters=[{
+            'target_frame_name': 'map',
+            'source_frame_name': 'oxts_link',
+            'trajectory_update_rate': 10.0,
+            'trajectory_publish_rate': 10.0
+        }]
+    )
+
+    imu_rotate_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('gps_imu_node'), 'launch', 'imu_rotate_launch.py'
             ])
         ])
     )
@@ -109,8 +130,6 @@ def generate_launch_description():
         bag_exec,
         robot_state_publisher_launch,
         rviz_node,
-        gps_imu_launch,
-        wheel_odom_launch,
         output_position_arg,
         output_location_arg,
         TimerAction(
@@ -118,7 +137,11 @@ def generate_launch_description():
             actions=[
                 ekf_filter_odom_node,
                 ekf_filter_map_node,
-                navsat_transform_node
+                navsat_transform_node,
+                gps_shift_launch,
+                trajectory_server_gps_node,
+                imu_rotate_launch,
+                wheel_odom_launch,
             ]
         )
     ])

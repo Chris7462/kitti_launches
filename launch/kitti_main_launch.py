@@ -41,6 +41,32 @@ def generate_launch_description():
         ])
     )
 
+    trajectory_server_gps_node = Node(
+        package='trajectory_server',
+        executable='trajectory_server_node',
+        name='trajectory_server_node',
+        namespace='oxts',
+        parameters=[{
+            'target_frame_name': 'map',
+            'source_frame_name': 'oxts_link',
+            'trajectory_update_rate': 10.0,
+            'trajectory_publish_rate': 10.0
+        }]
+    )
+
+    trajectory_server_ekf_node = Node(
+        package='trajectory_server',
+        executable='trajectory_server_node',
+        name='trajectory_server_node',
+        namespace='ekf',
+        parameters=[{
+            'target_frame_name': 'map',
+            'source_frame_name': 'base_link',
+            'trajectory_update_rate': 10.0,
+            'trajectory_publish_rate': 10.0
+        }]
+    )
+
     # Perception launch
     perception_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -59,6 +85,8 @@ def generate_launch_description():
             period=1.0, # dely localization for 1.0 seconds
             actions=[
                 localization_launch,
+                trajectory_server_gps_node,
+                trajectory_server_ekf_node,
                 perception_launch
             ]
         )

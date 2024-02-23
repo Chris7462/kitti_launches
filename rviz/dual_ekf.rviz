@@ -118,7 +118,7 @@ Visualization Manager:
         velo_link:
           Value: false
         wheel_link:
-          Value: true
+          Value: false
       Marker Scale: 15
       Name: TF
       Show Arrows: true
@@ -238,34 +238,6 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /oxts/trajectory
       Value: true
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz_default_plugins/Path
-      Color: 53; 132; 228
-      Enabled: true
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
-      Length: 0.30000001192092896
-      Line Style: Billboards
-      Line Width: 0.07999999821186066
-      Name: WheelPath
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Pose Color: 255; 85; 255
-      Pose Style: None
-      Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /wheel_odom/trajectory
-      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -312,7 +284,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 39.34172821044922
+      Distance: 125.97081756591797
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -327,10 +299,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9503980875015259
+      Pitch: 1.0403985977172852
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 3.103585720062256
+      Yaw: 3.213587760925293
     Saved: ~
 Window Geometry:
   Displays:
