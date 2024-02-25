@@ -2,7 +2,7 @@
 
 ekf_filter_node_odom:
   ros__parameters:
-    frequency: 30.0
+    frequency: 40.0
     sensor_timeout: 0.1
     two_d_mode: false
     transform_time_offset: 0.0
@@ -74,7 +74,7 @@ ekf_filter_node_odom:
 
 ekf_filter_node_map:
   ros__parameters:
-    frequency: 30.0
+    frequency: 40.0
     sensor_timeout: 0.1
     two_d_mode: false
     transform_time_offset: 0.0
@@ -157,7 +157,7 @@ ekf_filter_node_map:
 
 navsat_transform:
   ros__parameters:
-    frequency: 30.0
+    frequency: 40.0
     delay: 0.03
     magnetic_declination_radians: 0.02600541  # For lat/long 49.008645N, 8.398104E. 1.49 degree and convert to radius
     yaw_offset: 0.0  # IMU reads 0 facing magnetic north, not east
