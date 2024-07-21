@@ -14,6 +14,8 @@ def generate_launch_description():
     bag_exec = ExecuteProcess(
         cmd=['ros2', 'bag', 'play', '-r', '1.0',
              '/data/kitti/raw/2011_09_29_drive_0071_sync_bag' , '--clock']
+             #'/data/kitti/raw/2011_09_30_drive_0018_sync_bag' , '--clock']
+             #'/data/kitti/raw/2011_09_30_drive_0028_sync_bag' , '--clock']
     )
 
     # The TF and URDF of the vehicle
