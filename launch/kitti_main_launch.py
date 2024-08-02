@@ -13,9 +13,9 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     bag_exec = ExecuteProcess(
         cmd=['ros2', 'bag', 'play', '-r', '1.0',
-             '/data/kitti/raw/2011_09_29_drive_0071_sync_bag' , '--clock']
-             #'/data/kitti/raw/2011_09_30_drive_0018_sync_bag' , '--clock']
-             #'/data/kitti/raw/2011_09_30_drive_0028_sync_bag' , '--clock']
+             #'/data/kitti/raw/2011_09_29_drive_0071_sync_bag', '--clock']
+             '/data/kitti/raw/2011_09_30_drive_0018_sync_bag', '--clock']
+             #'/data/kitti/raw/2011_09_30_drive_0028_sync_bag', '--clock']
     )
 
     # The TF and URDF of the vehicle
@@ -69,6 +69,19 @@ def generate_launch_description():
         }]
     )
 
+    #   trajectory_server_iekf_node = Node(
+    #       package='trajectory_server',
+    #       executable='trajectory_server_node',
+    #       name='trajectory_server_node',
+    #       namespace='iekf',
+    #       parameters=[{
+    #           'target_frame_name': 'map',
+    #           'source_frame_name': 'iekf_link',
+    #           'trajectory_update_rate': 10.0,
+    #           'trajectory_publish_rate': 10.0
+    #       }]
+    #   )
+
     # Perception launch
     perception_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -83,13 +96,14 @@ def generate_launch_description():
         bag_exec,
         robot_state_publisher_launch,
         rviz_node,
+        localization_launch,
+        perception_launch,
         TimerAction(
-            period=1.0, # dely localization for 1.0 seconds
+            period=2.0, # dely localization for 2.0 seconds
             actions=[
-                localization_launch,
                 trajectory_server_gps_node,
                 trajectory_server_ekf_node,
-                perception_launch
+                # trajectory_server_iekf_node
             ]
         )
     ])
