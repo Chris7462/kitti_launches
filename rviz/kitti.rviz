@@ -4,6 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /TF1/Frames1
         - /TF1/Tree1
       Splitter Ratio: 0.5
     Tree Height: 355
@@ -95,13 +96,11 @@ Visualization Manager:
           Value: false
         cam3_link:
           Value: false
-        gps_link:
-          Value: false
-        imu_link:
-          Value: false
         map:
           Value: true
         oxts_link:
+          Value: false
+        oxts_local:
           Value: true
         velo_link:
           Value: false
@@ -113,9 +112,7 @@ Visualization Manager:
       Tree:
         map:
           base_link:
-            gps_link:
-              {}
-            imu_link:
+            oxts_link:
               velo_link:
                 cam0_link:
                   cam1_link:
@@ -124,7 +121,7 @@ Visualization Manager:
                     {}
                   cam3_link:
                     {}
-          oxts_link:
+          oxts_local:
             {}
       Update Interval: 0
       Value: true
@@ -171,15 +168,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        gps_link:
+        oxts_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         velo_link:
           Alpha: 1
           Show Axes: false
@@ -309,7 +302,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 28.011625289916992
+      Distance: 13.008712768554688
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1

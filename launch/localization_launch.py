@@ -6,41 +6,32 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    gps_shift_launch = IncludeLaunchDescription(
+    local_gps_imu_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('gps_imu_node'), 'launch', 'gps_shift_launch.py'
+                FindPackageShare('local_gps_imu'), 'launch', 'local_gps_imu_launch.py'
             ])
         ])
     )
 
-    imu_rotate_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('gps_imu_node'), 'launch', 'imu_rotate_launch.py'
-            ])
-        ])
-    )
-
-    ekf_localizer_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('ekf_localizer'), 'launch', 'ekf_localizer_launch.py'
-            ])
-        ])
-    )
-
-    #   iekf_localizer_launch = IncludeLaunchDescription(
+    #   ekf_localizer_launch = IncludeLaunchDescription(
     #       PythonLaunchDescriptionSource([
     #           PathJoinSubstitution([
-    #               FindPackageShare('iekf_localizer'), 'launch', 'iekf_localizer_launch.py'
+    #               FindPackageShare('ekf_localizer'), 'launch', 'ekf_localizer_launch.py'
     #           ])
     #       ])
     #   )
 
+    iekf_localizer_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('iekf_localizer'), 'launch', 'iekf_localizer_launch.py'
+            ])
+        ])
+    )
+
     return LaunchDescription([
-        gps_shift_launch,
-        imu_rotate_launch,
-        ekf_localizer_launch
-        # iekf_localizer_launch
+        local_gps_imu_launch,
+        # ekf_localizer_launch
+        iekf_localizer_launch
     ])
