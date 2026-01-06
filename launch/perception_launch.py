@@ -48,9 +48,22 @@ def generate_launch_description():
         }.items()
     )
 
+    scnn_lane_detection_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('scnn_lane_detection'), 'launch',
+                'scnn_lane_detection_launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'use_sim_time': LaunchConfiguration('use_sim_time')
+        }.items()
+    )
+
     return LaunchDescription([
         declare_use_sim_time,
         fcos_object_detection_launch,
         sort_tracker_launch,
-        fcn_segmentation_launch
+        fcn_segmentation_launch,
+        scnn_lane_detection_launch
     ])
