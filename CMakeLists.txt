@@ -1,16 +1,20 @@
-cmake_minimum_required(VERSION 3.16)
-project(kitti_launches)
+cmake_minimum_required(VERSION 3.20)
+
+project(kitti_launches
+  VERSION 1.0.0
+  DESCRIPTION "KITTI launch files collection"
+  LANGUAGES CXX)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME})
 
-install(DIRECTORY params
+install(DIRECTORY config
+  DESTINATION share/${PROJECT_NAME})
+
+install(DIRECTORY param
   DESTINATION share/${PROJECT_NAME})
 
 install(DIRECTORY rviz
