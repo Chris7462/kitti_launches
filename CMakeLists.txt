@@ -14,9 +14,6 @@ install(DIRECTORY launch
 install(DIRECTORY config
   DESTINATION share/${PROJECT_NAME})
 
-install(DIRECTORY param
-  DESTINATION share/${PROJECT_NAME})
-
 install(DIRECTORY rviz
   DESTINATION share/${PROJECT_NAME})
 

@@ -1,23 +1,27 @@
+from os.path import join
+
+from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
-from launch_ros.substitutions import FindPackageShare
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    pkg_share = get_package_share_directory('kitti_launches')
+
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
         default_value='true',
-        description='Use simulation (bagfile) clock if true'
+        description='Use simulation (bagfile/CARLA) clock if true'
     )
 
     declare_input_topic = DeclareLaunchArgument(
         'input_topic',
         description='Input lidar point cloud topic name. Required - no '
-                     'default, since it differs per data source '
-                     '(e.g. /kitti/velo or /carla/hero/lidar/point_cloud). '
-                     'Forwarded to the selected lidar odometry package, '
+                     'default. Passed through to localization_launch.py, '
                      'which will refuse to start its node(s) if this is '
                      'not provided.'
     )
@@ -26,9 +30,7 @@ def generate_launch_description():
         'odometry_package',
         default_value='mad_icp',
         description='Package providing lidar odometry. Alternative: floam. '
-                     'Must accept use_sim_time and input_topic as launch '
-                     'arguments and publish "odom"/"odom_path"/"map" '
-                     'topics (per mad_icp_params.yaml / floam_params.yaml).'
+                     'Passed through to localization_launch.py.'
     )
 
     declare_odometry_launch_file = DeclareLaunchArgument(
@@ -36,21 +38,27 @@ def generate_launch_description():
         default_value='mad_icp_launch.py',
         description='Launch file, relative to <odometry_package>/launch, '
                      'that starts lidar odometry. Alternative: '
-                     'floam_launch.py.'
+                     'floam_launch.py. Passed through to '
+                     'localization_launch.py.'
     )
 
-    odometry_launch = IncludeLaunchDescription(
+    localization_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([
-                FindPackageShare(LaunchConfiguration('odometry_package')),
-                'launch',
-                LaunchConfiguration('odometry_launch_file')
-            ])
+            join(pkg_share, 'launch', 'localization_launch.py')
         ),
         launch_arguments={
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'input_topic': LaunchConfiguration('input_topic'),
+            'odometry_package': LaunchConfiguration('odometry_package'),
+            'odometry_launch_file': LaunchConfiguration('odometry_launch_file'),
         }.items()
+    )
+
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', join(pkg_share, 'rviz', 'localization.rviz')]
     )
 
     return LaunchDescription([
@@ -58,5 +66,6 @@ def generate_launch_description():
         declare_input_topic,
         declare_odometry_package,
         declare_odometry_launch_file,
-        odometry_launch
+        localization_launch,
+        rviz_node
     ])
